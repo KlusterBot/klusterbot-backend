@@ -1,0 +1,444 @@
+:root {
+    --green: #2e7d32;
+    --darkgreen: #071e22;
+    --grey: #cfcfcf;
+    --red: #a5668b;
+    --blue: #607196;
+    --kluster-theme: #2e7d32;
+}
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+del,
+dfn,
+em,
+font,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend {
+    margin: 0;
+    border: 0;
+    outline: 0;
+    padding: 0;
+    font-size: 100%;
+    font-family: inherit;
+    font-weight: inherit;
+    font-style: inherit;
+    vertical-align: baseline;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+#kluster {
+    display: flex;
+    border: none;
+    position: fixed;
+    inset: auto 0px 0px auto;
+    width: 60px;
+    height: 60px;
+    opacity: 1;
+    margin: 0px;
+    transform: translateY(0px);
+    transition: auto;
+    visibility: visible;
+    z-index: 999999 !important;
+    right: 30px;
+    bottom: 40px;
+    padding: 10px;
+    border-radius: 100%;
+    background: linear-gradient(135deg, var(--kluster-theme), grey);
+    box-shadow: grey 0px 4px 24px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    outline-style: none;
+}
+
+#kluster_text {
+    display: none;
+    border: none;
+    position: fixed;
+    inset: auto 0px 0px auto;
+    width: 70%;
+    min-width: -moz-fit-content;
+    min-width: fit-content;
+    height: 60px;
+    opacity: 1;
+    margin: 0px;
+    transform: translateY(0px);
+    transition: auto;
+    visibility: visible;
+    z-index: 999999 !important;
+    right: 95px;
+    bottom: 40px;
+    padding: 10px;
+    border-radius: 20px;
+    background: white;
+    box-shadow: grey 0px 4px 24px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    outline-style: none;
+    font-size: 15px;
+}
+
+#kluster-status {
+    height: 20px;
+    width: 20px;
+    background: green;
+    border-radius: 100%;
+    position: absolute;
+    left: 35px;
+    top: 15px;
+    display: none;
+    box-shadow: 1px 1px 10px grey;
+    color: white;
+    font-family: roboto;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+#kluster-img {
+    height: 25px;
+    width: 25px;
+}
+
+#kluster_call {
+    position: fixed;
+    bottom: 0px;
+    width: -webkit-fill-available;
+    height: 0px;
+    background: limegreen;
+    z-index: 9999999999999999999 !important;
+    transition: 1s;
+    overflow: hidden;
+    border-radius: 10px 10px 0px 0px;
+    box-shadow: grey 0px 4px 24px;
+    background: white;
+}
+
+#kluster_call_cover {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+    justify-content: space-around;
+    margin: 10px;
+}
+
+#kluster_call_icon {
+    height: 50px;
+    width: 50px;
+    margin: 5px;
+}
+
+#kluster_caller {
+    margin: 0px;
+    cursor: move;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+#kluster_info {
+    margin: 0px;
+    color: grey;
+    text-transform: capitalize;
+}
+
+#kluster_accept_call,
+#kluster_end_call {
+    height: 50px;
+    width: 50px;
+    background: transparent;
+    border-radius: 100%;
+    cursor: pointer;
+    margin: 5px;
+}
+
+#kluster_chat {
+    height: calc(var(--vh, 1vh) * 100);
+    width: 100%;
+    background: white;
+    z-index: 99999999 !important;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    transition: auto;
+    display: none;
+    overscroll-behavior: contain;
+    overflow: hidden;
+}
+
+#kluster_iframe {
+    height: 100%;
+    width: 100%;
+    overscroll-behavior: contain;
+}
+
+@keyframes fadeInRightKluster1 {
+    0% {
+        opacity: 0;
+        right: 0px;
+    }
+
+    100% {
+        opacity: 1;
+        right: 80px;
+    }
+}
+
+@keyframes fadeOutRightKluster1 {
+    0% {
+        opacity: 1;
+        right: 80px;
+    }
+
+    100% {
+        opacity: 0;
+        right: 0px;
+    }
+}
+
+@keyframes fadeInRightKluster {
+    0% {
+        opacity: 0;
+        right: 0px;
+    }
+
+    100% {
+        opacity: 1;
+        right: 30px;
+    }
+}
+
+@keyframes fadeOutRightKluster {
+    0% {
+        opacity: 1;
+        right: 30px;
+    }
+
+    100% {
+        opacity: 0;
+        right: 0px;
+    }
+}
+
+.noscroll {
+    position: fixed !important;
+}
+
+body #kluster_iframe {
+    overscroll-behavior: contain;
+}
+
+/* Desktop  */
+/* Media Query for Mobile Devices */
+@media (max-width: 480px) {
+    #kluster_chat {
+        height: calc(var(--vh, 1vh) * 100);
+        width: 100%;
+        background: white;
+        z-index: 99999999 !important;
+        position: fixed;
+        transform: translate(-50%, -50%);
+        top: 50%;
+        left: 50%;
+        transition: auto;
+        display: none;
+        overscroll-behavior: contain;
+    }
+
+    #kluster_text {
+        width: -webkit-fill-available;
+        max-width: 70%;
+    }
+}
+
+/* Media Query for low resolution  Tablets, Ipads */
+@media (min-width: 481px) and (max-width: 767px) {
+    #kluster_chat {
+        height: calc(var(--vh, 1vh) * 100);
+        width: 100%;
+        background: white;
+        z-index: 99999999 !important;
+        position: fixed;
+        transform: translate(-50%, -50%);
+        top: 50%;
+        left: 50%;
+        transition: auto;
+        display: none;
+        overscroll-behavior: none;
+    }
+
+    #kluster_text {
+        width: 30%;
+        max-width: 40%;
+    }
+}
+
+/* Media Query for Tablets Ipads portrait mode */
+@media (min-width: 768px) and (max-width: 1500px) {
+    #kluster_call {
+        transform: translate(-50%, -50%);
+        top: 50%;
+        left: 50%;
+        border-radius: 10px;
+        width: 400px;
+        min-width: fit-content;
+        transition: auto;
+        animation: auto;
+        background: white;
+        box-shadow: grey 0px 4px 24px;
+    }
+
+    #kluster_chat {
+        width: 400px;
+        height: 60%;
+        right: 30px;
+        bottom: 30px;
+        transform: unset;
+        top: unset;
+        left: unset;
+        border-radius: 10px;
+        box-shadow: grey 0px 4px 24px;
+        animation: 0.5s linear 0s 1 alternate fadeInRightKluster;
+    }
+
+    #kluster_text {
+        width: -webkit-fill-available;
+        max-width: 50%;
+    }
+}
+
+/* Media Query for Small Desktops */
+@media (min-width: 1024px) and (max-height: 600px) {
+    #kluster_chat {
+        height: 90%;
+    }
+
+    #kluster_text {
+        width: 30%;
+        max-width: 40%;
+    }
+}
+
+/* Media Query for Laptops and Desktops */
+@media (min-width: 1025px) and (max-width: 1280px) {
+    #kluster_chat {
+        width: 400px;
+        height: 80%;
+        right: 30px;
+        bottom: 30px;
+        transform: unset;
+        top: unset;
+        left: unset;
+        border-radius: 10px;
+        box-shadow: grey 0px 4px 24px;
+        animation: 0.5s linear 0s 1 alternate fadeInRightKluster;
+    }
+
+    #kluster_text {
+        width: 30%;
+        max-width: 40%;
+    }
+}
+
+/* Media Query for Large screens */
+@media (min-width: 1365px) and (max-width: 766px) {
+    #kluster_chat {
+        width: 400px;
+        height: 80%;
+        right: 30px;
+        bottom: 30px;
+        transform: unset;
+        top: unset;
+        left: unset;
+        border-radius: 10px;
+        box-shadow: grey 0px 4px 24px;
+        animation: 0.5s linear 0s 1 alternate fadeInRightKluster;
+    }
+
+    #kluster_text {
+        width: -webkit-fill-available;
+        max-width: 30%;
+    }
+}
+
+@media (min-width: 1281px) and (max-width: 1500px) {
+    #kluster_chat {
+        width: 350px;
+        height: 85%;
+        right: 30px;
+        bottom: 30px;
+        transform: unset;
+        top: unset;
+        left: unset;
+        border-radius: 10px;
+        box-shadow: grey 0px 4px 24px;
+        animation: 0.5s linear 0s 1 alternate fadeInRightKluster;
+    }
+
+    #kluster_text {
+        width: -webkit-fill-available;
+        max-width: 30%;
+    }
+}

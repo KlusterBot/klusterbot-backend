@@ -1,0 +1,20 @@
+# Node Modules
+
+/node_modules
+node_modules
+# ENV
+
+# development env
+.env
+.env1
+.env.development
+
+# temp tests file
+
+test.js
+uploads
+package-lock.json
+
+# prisma schema/migration
+
+/prisma/migrations
