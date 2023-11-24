@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const morgan = require('morgan');
 const cors = require("cors");
 const app = express();
 const http = require("http");
@@ -44,6 +45,7 @@ app.use(
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(morgan('combined'));
 
 // router  middlewares
 // app.use(customlimiter);
@@ -119,12 +121,12 @@ const storage = multer.diskStorage({
             cb(
                 null,
                 file.fieldname +
-                    "-" +
-                    genUnique() +
-                    "." +
-                    file.originalname
-                        .split(".")
-                        [file.originalname.split(".").length - 1].toLowerCase()
+                "-" +
+                genUnique() +
+                "." +
+                file.originalname
+                    .split(".")
+                [file.originalname.split(".").length - 1].toLowerCase()
             );
         } catch (error) {
             cb(null, file.fieldname + "-" + genUnique());
@@ -139,7 +141,7 @@ app.post(
     "/api/upload",
     upload.single("logo"),
     isLoggedIn,
-    async function (req, res) {
+    async function(req, res) {
         let { id, type } = res.user;
         const { filename, path, destination } = req.file;
 
@@ -191,7 +193,7 @@ app.post(
     "/api/upload/:visitorId",
     upload.single("file"),
     isLoggedIn,
-    async function (req, res) {
+    async function(req, res) {
         let { id, name, picture } = res.user;
         const { filename, path, destination } = req.file;
         const visitorId = req.params.visitorId;
@@ -217,7 +219,7 @@ app.post(
 app.post(
     "/api/upload/:visitorId/:id",
     upload.single("file"),
-    async function (req, res) {
+    async function(req, res) {
         const id = req.params.id;
         const { filename, path, destination } = req.file;
         const visitorId = req.params.visitorId;
