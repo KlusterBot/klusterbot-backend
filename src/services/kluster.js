@@ -3086,7 +3086,6 @@
         // Append Call and Chat Dialog Box
         appendCall();
         appendChat();
-        assistro;
         dom("#kluster_accept_call").onclick = function () {
             ringingSound.pause();
             ringingSound.currentTime = 0;
