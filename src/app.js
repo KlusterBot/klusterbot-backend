@@ -19,7 +19,7 @@ const messageRouter = require("./routes/message.router");
 const waitlistRouter = require("./routes/waitlist.router");
 const userRouter = require("./routes/user.router");
 const walletRouter = require("./routes/wallets.router");
-const productRouter = require("./routes/product.router");
+const aiRouter = require("./routes/ai.router");
 const storeRouter = require("./routes/store.router");
 const paymentRouter = require("./routes/payment.router");
 const supportRouter = require("./routes/support.router");
@@ -83,8 +83,8 @@ app.use("/api/user", userRouter);
 // Wallets
 app.use("/api/wallet", walletRouter);
 
-// Products
-app.use("/api/product", productRouter);
+// AI
+app.use("/api/ai", aiRouter);
 
 // Transaction
 app.use("/api/store", storeRouter);
