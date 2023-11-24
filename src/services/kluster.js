@@ -3086,7 +3086,7 @@
         // Append Call and Chat Dialog Box
         appendCall();
         appendChat();
-
+        assistro;
         dom("#kluster_accept_call").onclick = function () {
             ringingSound.pause();
             ringingSound.currentTime = 0;
@@ -3483,18 +3483,6 @@
         ],
     };
 
-    // const servers = {
-    //     iceServers: [{
-    //         "urls": "stun:stun.enchat.com.ng",
-    //         "username": "guest",
-    //         "credential": "password"
-    //     }, {
-    //         "urls": "turn:stun.enchat.com.ng",
-    //         "username": "guest",
-    //         "credential": "password"
-    //     }]
-    // }
-
     let constraints = {
         video: false,
         audio: true,
@@ -3831,7 +3819,7 @@
         div.innerHTML = `
             <div id="kluster_chat_cover">
                 <!--<div id="kluster_chat_head">
-                    <img id="kluster_call_icon" src="https://wgl-demo.net/transmax/wp-content/uploads/2021/08/cropped-fav-180x180.png">
+                    <img id="kluster_call_icon" src="">
                 </div>-->
             </div>
             <iframe src="${origin}/support/${key}/${id}" id="kluster_iframe">

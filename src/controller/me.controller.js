@@ -32,12 +32,12 @@ class MeControler {
 
     async updateMe(res, payload) {
         const { id } = res.user;
-        const { name, website, callable, about, theme } = payload;
+        const { name, website, about, theme } = payload;
 
         try {
             await query(
-                "UPDATE users SET company = ?, website = ?, callable = ?, about = ?, theme = ? WHERE id = ?",
-                [name, website, callable, about, theme, id]
+                "UPDATE users SET company = ?, website = ?, about = ?, theme = ? WHERE id = ?",
+                [name, website, about, theme, id]
             );
 
             return sendResponse(res, 200, true, "Company Info Updated", {
