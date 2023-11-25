@@ -105,7 +105,7 @@ CREATE TABLE `triggers` (
 CREATE TABLE `users` (
   `id` varchar(100) NOT NULL,
   `name` varchar(100) NOT NULL,
-  `company` varchar(100) NOT NULL DEFAULT '',
+  `company` varchar(100) NOT NULL DEFAULT 'Kluster',
   `logo` varchar(2000) NOT NULL DEFAULT 'logo.png',
   `email` varchar(100) NOT NULL,
   `password` varchar(500) NOT NULL,
@@ -116,7 +116,7 @@ CREATE TABLE `users` (
   `about` text NOT NULL DEFAULT '',
   `callable` varchar(10) NOT NULL DEFAULT 'false',
   `website` varchar(500) NOT NULL DEFAULT '',
-  `theme` varchar(50) NOT NULL DEFAULT '#2e7d32',
+  `theme` varchar(50) NOT NULL DEFAULT '#153ABA',
   `token` varchar(100) NOT NULL DEFAULT '',
   `legit` varchar(6) NOT NULL DEFAULT 'false'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
