@@ -174,6 +174,35 @@ class AIController {
             sendResponse(res, 500, true, "Something went wrong");
         }
     }
+
+    async stats(res) {
+        const { id } = res.user;
+
+        const users = await query("SELECT * FROM users WHERE id = ?", [id]);
+        const { token } = users[0];
+
+        try {
+            const visitors = await query(
+                "SELECT * FROM visitors WHERE user_id = ?",
+                [id]
+            );
+            const messages = await query(
+                "SELECT * FROM messages WHERE user_id = ?",
+                [id]
+            );
+            const active = await pm2.checkAppStatus(token);
+
+            sendResponse(res, 200, true, "Stats", {
+                visitors: visitors.length,
+                messages: messages.length,
+                active,
+            });
+        } catch (e) {
+            console.log(e);
+            sendResponse(res, 500, true, "Something went wrong");
+        }
+    }
+    
 }
 
 module.exports = AIController;

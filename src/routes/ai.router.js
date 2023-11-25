@@ -31,4 +31,10 @@ Router.post("/stop", isLoggedIn, (req, res) => {
     AI.stop(res);
 });
 
+// Get AI Stats
+
+Router.get("/stats", isLoggedIn, (req, res) => {
+    AI.stats(res);
+});
+
 module.exports = Router;
