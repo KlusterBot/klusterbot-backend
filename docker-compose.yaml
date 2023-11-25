@@ -1,8 +1,8 @@
 version: '3.8'
 
 services:
-  mysqldb:
-    image: mysql:5.7
+  kluster-db:
+    image: mariadb
     restart: always
     env_file: ./.env
     environment:
@@ -15,14 +15,14 @@ services:
       - ./kluster.sql:/docker-entrypoint-initdb.d/kluster.sql
   app:
     depends_on:
-      - mysqldb
+      - kluster-db
     build: .
     restart: always
     env_file: ./.env
     ports:
       - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT
     environment:
-      - HOST=mysqldb
+      - HOST=kluster-db
       - DB_USER=$MYSQLDB_USER
       - DB_PASSWORD=$MYSQLDB_ROOT_PASSWORD
       - DB_NAME=$MYSQLDB_DATABASE

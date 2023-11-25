@@ -45,7 +45,7 @@ app.use(
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(morgan('combined'));
+app.use(morgan('tiny'));
 
 // router  middlewares
 // app.use(customlimiter);
