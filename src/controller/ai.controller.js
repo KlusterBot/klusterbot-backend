@@ -192,9 +192,15 @@ class AIController {
             );
             const active = await pm2.checkAppStatus(token);
 
-            sendResponse(res, 200, true, "Stats", {
+            let average = 0;
+            if (visitors.length > 0) {
+                average = messages.length / visitors.length;
+            }
+
+            sendResponse(res, 200, false, {
                 visitors: visitors.length,
                 messages: messages.length,
+                average,
                 active,
             });
         } catch (e) {
