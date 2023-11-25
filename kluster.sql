@@ -106,7 +106,7 @@ CREATE TABLE `users` (
   `id` varchar(100) NOT NULL,
   `name` varchar(100) NOT NULL,
   `company` varchar(100) NOT NULL DEFAULT 'Kluster',
-  `logo` varchar(2000) NOT NULL DEFAULT 'https://cdn-icons-png.flaticon.com/128/630/630426.png',
+  `logo` varchar(2000) NOT NULL DEFAULT 'logo.png',
   `email` varchar(100) NOT NULL,
   `password` varchar(500) NOT NULL,
   `joined` timestamp(6) NOT NULL DEFAULT current_timestamp(6),
