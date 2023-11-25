@@ -189,7 +189,7 @@ class AuthControler {
                             name || "",
                             toHash(password) || "",
                             email || "",
-                            "true",
+                            "false",
                             token,
                         ],
                     },
