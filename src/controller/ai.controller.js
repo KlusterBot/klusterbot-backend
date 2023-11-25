@@ -22,6 +22,7 @@ class AIController {
             pm2.hasApp(token, async (status) => {
                 if (status) {
                     await pm2.restartApp(token);
+                    await query("UPDATE users SET verified = 'true' WHERE id = ?", [id]);
                     sendResponse(
                         res,
                         200,
@@ -30,8 +31,9 @@ class AIController {
                     );
                 } else {
                     await pm2.startApp(token, modelPath, appPath);
-                    await pm2.checkAppStatus(token, (status) => {
+                    await pm2.checkAppStatus(token, async (status) => {
                         if (status) {
+                            await query("UPDATE users SET verified = 'true' WHERE id = ?", [id]);
                             sendResponse(
                                 res,
                                 200,
