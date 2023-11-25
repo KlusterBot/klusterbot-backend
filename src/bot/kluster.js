@@ -21,8 +21,8 @@ let kluster = new Kluster(token, {
 
 // kluster.debug();
 
-const AI_SERVER = "http://localhost:4000/";
-// const AI_SERVER = "https://ai.kluster-ai.online/";
+// const AI_SERVER = "http://localhost:4000/";
+const AI_SERVER = "https://ai.kluster-ai.online/";
 
 kluster.on(
     "message",
