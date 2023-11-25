@@ -9,7 +9,7 @@ const path = require("path");
 class AIController {
     async add(res, payload) {
         const { id } = res.user;
-        const { document } = payload;
+        const { company, website, document } = payload;
 
         const users = await query("SELECT * FROM users WHERE id = ?", [id]);
         const { token } = users[0];
@@ -22,7 +22,10 @@ class AIController {
             pm2.hasApp(token, async (status) => {
                 if (status) {
                     await pm2.restartApp(token);
-                    await query("UPDATE users SET verified = 'true' WHERE id = ?", [id]);
+                    await query(
+                        "UPDATE users SET verified = 'true', company = ?, website = ? WHERE id = ?",
+                        [company, website, id]
+                    );
                     sendResponse(
                         res,
                         200,
@@ -33,7 +36,10 @@ class AIController {
                     await pm2.startApp(token, modelPath, appPath);
                     await pm2.checkAppStatus(token, async (status) => {
                         if (status) {
-                            await query("UPDATE users SET verified = 'true' WHERE id = ?", [id]);
+                            await query(
+                                "UPDATE users SET verified = 'true', company = ?, website = ? WHERE id = ?",
+                                [company, website, id]
+                            );
                             sendResponse(
                                 res,
                                 200,
