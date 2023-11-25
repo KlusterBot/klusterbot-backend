@@ -1,6 +1,5 @@
 const { io } = require("socket.io-client");
 const { api } = require("./config");
-const Call = require("./call");
 const Stage = require("./stage");
 const CONSTANTS = require("./constants");
 
@@ -261,4 +260,4 @@ function Kluster(token, info) {
     // return self;
 }
 
-module.exports = { Kluster, Stage, Call, CONSTANTS };
+module.exports = { Kluster, Stage, CONSTANTS };
