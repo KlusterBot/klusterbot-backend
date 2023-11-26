@@ -187,7 +187,7 @@ class AIController {
                 [id]
             );
             const messages = await query(
-                "SELECT * FROM messages WHERE user_id = ?",
+                "SELECT * FROM messages WHERE msg_to = ?",
                 [id]
             );
             const active = await pm2.checkAppStatus(token);
