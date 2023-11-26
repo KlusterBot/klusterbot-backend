@@ -4,6 +4,7 @@ const Fetch = require("../utils/fetch");
 const db = require("../services/db");
 const query = require("../helpers/query");
 const fs = require("fs");
+const path = require("path");
 
 class MeControler {
     async #getVisitor(id) {
