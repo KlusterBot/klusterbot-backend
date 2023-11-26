@@ -197,12 +197,18 @@ class AIController {
                 average = messages.length / visitors.length;
             }
 
-            sendResponse(res, 200, false, {
-                visitors: visitors.length,
-                messages: messages.length,
-                average,
-                active,
-            });
+            sendResponse(
+                res,
+                200,
+                false, 
+                "Chatbot Stats",
+                {
+                    active,
+                    visitors: visitors.length,
+                    messages: messages.length,
+                    average,
+                }
+            );
         } catch (e) {
             console.log(e);
             sendResponse(res, 500, true, "Something went wrong");
