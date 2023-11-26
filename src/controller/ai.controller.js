@@ -188,9 +188,9 @@ class AIController {
             );
             const messages = await query(
                 "SELECT * FROM messages WHERE msg_from = ? OR msg_to = ?",
-                [id]
+                [id, id]
             );
-            const active = await pm2.checkAppStatus(token);
+            const active = await pm2.checkAppStatus(token, (status) => status);
 
             let average = 0;
             if (visitors.length > 0) {
