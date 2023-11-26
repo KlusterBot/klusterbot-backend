@@ -4,6 +4,7 @@ const Fetch = require("../utils/fetch");
 const db = require("../services/db");
 const query = require("../helpers/query");
 const fs = require("fs");
+const path = require("path");
 
 class MeControler {
     async #getVisitor(id) {
@@ -25,7 +26,7 @@ class MeControler {
             delete user["password"];
         }
 
-        const modelPath = __dirname + `/../models/${user.token}.txt`;
+        const modelPath = path.join(__dirname, `../models/${user.token}.txt`);
         let about = fs.readFileSync(modelPath, "utf-8");
 
 
