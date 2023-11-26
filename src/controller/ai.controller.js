@@ -190,7 +190,7 @@ class AIController {
                 "SELECT * FROM messages WHERE msg_from = ? OR msg_to = ?",
                 [id, id]
             );
-            const active = await pm2.checkAppStatus(token, (status) => status);
+
 
             let average = 0;
             if (visitors.length > 0) {
@@ -203,7 +203,6 @@ class AIController {
                 false, 
                 "Chatbot Stats",
                 {
-                    active,
                     visitors: visitors.length,
                     messages: messages.length,
                     average,
