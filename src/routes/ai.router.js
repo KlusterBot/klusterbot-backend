@@ -40,7 +40,7 @@ Router.get("/stats", isLoggedIn, (req, res) => {
 // Send Human Attention Notification Email
 
 Router.post("/notify", (req, res) => {
-    AI.notify(res);
+    AI.notify(res, req.body);
 });
 
 module.exports = Router;
