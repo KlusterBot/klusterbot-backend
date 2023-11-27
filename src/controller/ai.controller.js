@@ -232,7 +232,7 @@ class AIController {
                         reason: reason,
                     },
                 }),
-            }).then((res) => {
+            }).then((response) => {
                 sendResponse(res, 200, true, "Email Sent Successfully");
             }).catch((e) => {
                 console.log(e);
