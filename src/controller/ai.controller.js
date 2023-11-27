@@ -221,7 +221,7 @@ class AIController {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${proccess.env.PLUNK_API_KEY}`,
+                    Authorization: `Bearer ${process.env.PLUNK_API_KEY}`,
                 },
                 body: JSON.stringify({
                     event: "human-required",
