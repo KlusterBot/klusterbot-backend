@@ -3084,28 +3084,7 @@
 
         div.parentNode.insertBefore(klusterText, div);
         // Append Call and Chat Dialog Box
-        appendCall();
         appendChat();
-        dom("#kluster_accept_call").onclick = function () {
-            ringingSound.pause();
-            ringingSound.currentTime = 0;
-            if (
-                dom("#kluster_accept_call").src !=
-                "https://cdn-icons-png.flaticon.com/512/3616/3616215.png"
-            ) {
-                if (offer) {
-                    pickCall(offer);
-                    dom("#kluster_accept_call").src =
-                        "https://cdn-icons-png.flaticon.com/512/3616/3616215.png";
-                }
-            } else {
-                endCall(true);
-                setTimeout(function () {
-                    dom("#kluster_accept_call").src =
-                        "https://cdn-icons-png.flaticon.com/512/5585/5585856.png";
-                }, 3000);
-            }
-        };
 
         kluster = new Kluster();
 
@@ -3153,19 +3132,7 @@
             });
         });
 
-        Socket.on("incomingcall", function (msg) {
-            //Set Caller Socket id
-            callerId = msg.callerId;
-
-            showCall(msg);
-            dragElement(dom("#kluster_call"));
-            console.log(msg);
-
-            //Send Data to Caller
-            sendData(Socket);
-
-            ringingSound.play();
-        });
+        Socket.on("incomingcall", function (msg) {});
 
         let lastOnlineTimeStamp = null;
 
@@ -3221,13 +3188,6 @@
 
                 let obj = data.info;
 
-                dom("#kluster_call_icon").src = api + "/logo/" + obj.logo;
-                dom("#kluster_caller").innerHTML = obj.company;
-                dom("#kluster_accept_call").src =
-                    "https://cdn-icons-png.flaticon.com/512/3616/3616215.png";
-
-                dom("#kluster_call").style.height = "90px";
-
                 if (data.key) {
                     setCallInfo("Connecting...");
                     clearTimeout(noAnswerTimeout);
@@ -3237,8 +3197,6 @@
 
                 //Send Data to Caller
                 sendData(socket);
-
-                dragElement(dom("#kluster_call"));
             } else if (data.type == "requestScreenShare") {
                 await requestScreenShare();
             } else if (data.type == "negotiate") {
@@ -3685,58 +3643,11 @@
         }
     }
 
-    function call(obj) {
-        dom("#kluster_call_icon").src = api + "/logo/" + obj.logo;
-        dom("#kluster_info").innerHTML = "Calling...";
-        dom("#kluster_caller").innerHTML = obj.company;
-        dom("#kluster_accept_call").src =
-            "https://cdn-icons-png.flaticon.com/512/3616/3616215.png";
-
-        dom("#kluster_call").style.height = "90px";
-        dom("#kluster_call").style.display = "block";
-
-        isCalling = true;
-
-        noAnswerTimeout = setTimeout(function () {
-            if (isRinging) {
-                isRinging = false;
-                socket.emit("callInfo2", {
-                    type: "endCall",
-                    callerId,
-                    id,
-                });
-
-                setCallInfo("No Answer");
-
-                ringingSound.pause();
-                ringingSound.currentTime = 0;
-
-                setTimeout(function () {
-                    if (!isRinging) {
-                        dom("#kluster_call").style.height = "0px";
-                        dom("#kluster_call").classList.remove("fold");
-                    }
-                }, 2000);
-
-                try {
-                    new Audio(origin + "/end_call.mp3").play();
-                } catch (error) {}
-            }
-        }, 20000);
-    }
+    function call(obj) {}
 
     function showCall(data) {
         let obj = data.info;
         offer = data.offer;
-        dom("#kluster_call_icon").src = api + "/logo/" + obj.logo;
-        dom("#kluster_info").innerHTML = "Incoming Call";
-        dom("#kluster_caller").innerHTML = obj.company;
-        dom("#kluster_accept_call").src =
-            "https://cdn-icons-png.flaticon.com/512/5585/5585856.png";
-
-        dom("#kluster_call").style.height = "90px";
-
-        console.log(callerId);
 
         socket.emit("callInfo2", {
             type: "ringing",
