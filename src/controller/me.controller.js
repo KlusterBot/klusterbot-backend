@@ -27,15 +27,15 @@ class MeControler {
         }
 
         const modelPath = __dirname + `/../models/${user.token}.txt`;
-        let about = "";
+        let document = "";
 
         try {
-            about = fs.readFileSync(modelPath, "utf-8");
+            document = fs.readFileSync(modelPath, "utf-8");
         } catch (error) {}
 
         return sendResponse(res, 200, true, "User", {
             ...user,
-            about,
+            document,
         });
     }
 

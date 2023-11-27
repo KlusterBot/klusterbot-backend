@@ -97,7 +97,7 @@ legend {
     bottom: 40px;
     padding: 10px;
     border-radius: 100%;
-    background: linear-gradient(135deg, var(--kluster-theme), grey);
+    background: var(--kluster-theme);
     box-shadow: grey 0px 4px 24px;
     flex-direction: column;
     justify-content: center;
