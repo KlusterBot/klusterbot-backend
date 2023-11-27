@@ -23,13 +23,50 @@ let kluster = new Kluster(token, {
 
 // const AI_SERVER = "http://localhost:4000/";
 const AI_SERVER = "https://ai.kluster-ai.online/";
+const API_SERVER = "https://api.kluster-ai.online/";
 
 kluster.on(
     "message",
     async ({ id, message, reply, typing, sendButtons, token }) => {
+        let msg = "";
         let aiStage = new Stage();
 
+        let humanAttentionStage = new Stage();
+
+        humanAttentionStage.add(async (next) => {
+            reply("Please enter your reason!");
+
+            next();
+        });
+
+        humanAttentionStage.add(async (event, { message }, next) => {
+            if (message.split(" ").length < 5) {
+                return reply("Please enter a reason with upto 5 words!");
+            }
+
+            try {
+                const response = await axios.post(
+                    API_SERVER + "api/ai/notify",
+                    {
+                        id,
+                        reason: message,
+                    }
+                );
+            } catch (error) {
+                console.log(error);
+            }
+
+            aiStage.run(id, kluster);
+
+            next();
+        });
+
         aiStage.add(async (next) => {
+            if (msg !== "") {
+                reply(msg);
+                msg = "";
+                return;
+            }
             typing();
 
             try {
@@ -38,6 +75,11 @@ kluster.on(
                     id,
                     model,
                 });
+
+                if (response.data.action === "support") {
+                    msg = response.data.response;
+                    return humanAttentionStage.run(id, kluster);
+                }
 
                 reply(response.data.response);
             } catch (error) {
@@ -56,6 +98,11 @@ kluster.on(
                     id,
                     model,
                 });
+
+                if (response.data.action === "support") {
+                    msg = response.data.response;
+                    return humanAttentionStage.run(id, kluster);
+                }
 
                 reply(response.data.response);
             } catch (error) {
