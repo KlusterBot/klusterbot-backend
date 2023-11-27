@@ -191,29 +191,59 @@ class AIController {
                 [id, id]
             );
 
-
             let average = 0;
             if (visitors.length > 0) {
                 average = messages.length / visitors.length;
             }
 
-            sendResponse(
-                res,
-                200,
-                false, 
-                "Chatbot Stats",
-                {
-                    visitors: visitors.length,
-                    messages: messages.length,
-                    average,
-                }
-            );
+            sendResponse(res, 200, false, "Chatbot Stats", {
+                visitors: visitors.length,
+                messages: messages.length,
+                average,
+            });
         } catch (e) {
             console.log(e);
             sendResponse(res, 500, true, "Something went wrong");
         }
     }
-    
+
+    async notify(res, payload) {
+        const { id, reason } = payload;
+
+        try {
+            const visitors = await query("SELECT * FROM visitors WHERE visitor_id = ?", [id]);
+            const { name, email, user_id } = visitors[0];
+
+            const users = await query("SELECT * FROM users WHERE id = ?", [user_id]);
+            const user_email = users[0].email;
+
+            fetch("https://api.useplunk.com/v1/track", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${proccess.env.PLUNK_API_KEY}`,
+                },
+                body: JSON.stringify({
+                    event: "human-required",
+                    email: user_email,
+                    data: {
+                        email: email,
+                        name: name,
+                        reason: reason,
+                    },
+                }),
+            }).then((res) => {
+                sendResponse(res, 200, true, "Email Sent Successfully");
+            }).catch((e) => {
+                console.log(e);
+                sendResponse(res, 500, true, "Something went wrong");
+            });
+
+        } catch (e) {
+            console.log(e);
+            sendResponse(res, 500, true, "Something went wrong");
+        }
+    }
 }
 
 module.exports = AIController;
