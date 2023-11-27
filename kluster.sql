@@ -113,7 +113,7 @@ CREATE TABLE `users` (
   `verified` varchar(10) NOT NULL DEFAULT 'false',
   `balance` int(10) NOT NULL DEFAULT 0,
   `status` varchar(10) NOT NULL DEFAULT 'offline',
-  `about` text NOT NULL DEFAULT '',
+  `about` text NOT NULL DEFAULT 'Our Customer Support',
   `callable` varchar(10) NOT NULL DEFAULT 'false',
   `website` varchar(500) NOT NULL DEFAULT '',
   `theme` varchar(50) NOT NULL DEFAULT '#153ABA',

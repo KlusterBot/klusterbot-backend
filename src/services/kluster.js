@@ -2859,7 +2859,7 @@
 
 (function () {
     const messageIcon =
-        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgEAQAAACJ4248AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QAAKqNIzIAAAAJcEhZcwAAAGAAAABgAPBrQs8AAAAHdElNRQfmCR0GJwvqMKhTAAABHElEQVRYw+2XvYoCMRSFzx0WtPYNRHwCrewUH2E6USvfxt/ayp8nsBd7bVSsRB/CajLNPVvMruwuswMLY7JFThWSwPfdJIQEcBz5bFDbbUivB1QqQKHwGlwcA/c7sFiIbLfPbnIyoe3oePxRebdrHf5MpyPUwwFSr7s5Afu9kFEEFItuBIwRknQDTxK4hHsBL+AFvIAX8AL/RcAYd3hjAvBycSdwPgfAbOZOYDoFAFBHI/uv4uEQ+PovYLMJ9PtAtZr8C8ploFRKNyfB4xGi+reK4xi4XoHlUmS3y5xKrlbp6o8HNQzz2oS334fSqjudwDCU4HbLSyDjHvgpsF4DjUae8MxQ5/NkyaOIOhhYgX4TYKtFbjZkrWYdbjPvrfLd6K3sdPkAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMDktMjlUMDY6Mzk6MTErMDA6MDBaBzWKAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIyLTA5LTI5VDA2OjM5OjExKzAwOjAwK1qNNgAAACh0RVh0ZGF0ZTp0aW1lc3RhbXAAMjAyMi0wOS0yOVQwNjozOToxMSswMDowMHxPrOkAAAAASUVORK5CYII=";
+        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAADDSURBVHgB7ZXhDYIwEIVfSQdgAzsKG7hCN9AR6gTGDRzBDdAN3ACcQDaod+RqGoMxsS2/+iWPayC5LwXSUxC895bKltIiD3fKSSk1BsHRl2GgGEWXjjy92CfKBekYSifrK+/CifXJVmSCep1D3ya6P73fXx5GqW2DFaiSKqmSKsnDJiz00lM5jXdIG2BW6k1/EfB8MUiH55PVPwQP/A/3Oczj42NoDdHodMhFJPFFBFj+u3iLDgUl2QUz/LEpPWWPQrwA3kzW+uFJu6AAAAAASUVORK5CYII=";
     const api = "API_URL";
     const key = "API_KEY";
     const theme = "USER_THEME";
@@ -3084,28 +3084,7 @@
 
         div.parentNode.insertBefore(klusterText, div);
         // Append Call and Chat Dialog Box
-        appendCall();
         appendChat();
-        dom("#kluster_accept_call").onclick = function () {
-            ringingSound.pause();
-            ringingSound.currentTime = 0;
-            if (
-                dom("#kluster_accept_call").src !=
-                "https://cdn-icons-png.flaticon.com/512/3616/3616215.png"
-            ) {
-                if (offer) {
-                    pickCall(offer);
-                    dom("#kluster_accept_call").src =
-                        "https://cdn-icons-png.flaticon.com/512/3616/3616215.png";
-                }
-            } else {
-                endCall(true);
-                setTimeout(function () {
-                    dom("#kluster_accept_call").src =
-                        "https://cdn-icons-png.flaticon.com/512/5585/5585856.png";
-                }, 3000);
-            }
-        };
 
         kluster = new Kluster();
 
@@ -3153,19 +3132,7 @@
             });
         });
 
-        Socket.on("incomingcall", function (msg) {
-            //Set Caller Socket id
-            callerId = msg.callerId;
-
-            showCall(msg);
-            dragElement(dom("#kluster_call"));
-            console.log(msg);
-
-            //Send Data to Caller
-            sendData(Socket);
-
-            ringingSound.play();
-        });
+        Socket.on("incomingcall", function (msg) {});
 
         let lastOnlineTimeStamp = null;
 
@@ -3221,13 +3188,6 @@
 
                 let obj = data.info;
 
-                dom("#kluster_call_icon").src = api + "/logo/" + obj.logo;
-                dom("#kluster_caller").innerHTML = obj.company;
-                dom("#kluster_accept_call").src =
-                    "https://cdn-icons-png.flaticon.com/512/3616/3616215.png";
-
-                dom("#kluster_call").style.height = "90px";
-
                 if (data.key) {
                     setCallInfo("Connecting...");
                     clearTimeout(noAnswerTimeout);
@@ -3237,8 +3197,6 @@
 
                 //Send Data to Caller
                 sendData(socket);
-
-                dragElement(dom("#kluster_call"));
             } else if (data.type == "requestScreenShare") {
                 await requestScreenShare();
             } else if (data.type == "negotiate") {
@@ -3685,58 +3643,11 @@
         }
     }
 
-    function call(obj) {
-        dom("#kluster_call_icon").src = api + "/logo/" + obj.logo;
-        dom("#kluster_info").innerHTML = "Calling...";
-        dom("#kluster_caller").innerHTML = obj.company;
-        dom("#kluster_accept_call").src =
-            "https://cdn-icons-png.flaticon.com/512/3616/3616215.png";
-
-        dom("#kluster_call").style.height = "90px";
-        dom("#kluster_call").style.display = "block";
-
-        isCalling = true;
-
-        noAnswerTimeout = setTimeout(function () {
-            if (isRinging) {
-                isRinging = false;
-                socket.emit("callInfo2", {
-                    type: "endCall",
-                    callerId,
-                    id,
-                });
-
-                setCallInfo("No Answer");
-
-                ringingSound.pause();
-                ringingSound.currentTime = 0;
-
-                setTimeout(function () {
-                    if (!isRinging) {
-                        dom("#kluster_call").style.height = "0px";
-                        dom("#kluster_call").classList.remove("fold");
-                    }
-                }, 2000);
-
-                try {
-                    new Audio(origin + "/end_call.mp3").play();
-                } catch (error) {}
-            }
-        }, 20000);
-    }
+    function call(obj) {}
 
     function showCall(data) {
         let obj = data.info;
         offer = data.offer;
-        dom("#kluster_call_icon").src = api + "/logo/" + obj.logo;
-        dom("#kluster_info").innerHTML = "Incoming Call";
-        dom("#kluster_caller").innerHTML = obj.company;
-        dom("#kluster_accept_call").src =
-            "https://cdn-icons-png.flaticon.com/512/5585/5585856.png";
-
-        dom("#kluster_call").style.height = "90px";
-
-        console.log(callerId);
 
         socket.emit("callInfo2", {
             type: "ringing",
@@ -3784,33 +3695,7 @@
         window.navigator.vibrate(0);
     }
 
-    function appendCall() {
-        let div = document.createElement("DIV");
-        div.id = "kluster_call";
-        div.innerHTML = `
-            <div id="kluster_call_cover">
-                <img id="kluster_call_icon" src="">
-                <div>
-                    <h4 id="kluster_caller"></h4>
-                    <p id="kluster_info">Incoming Call</p>
-                </div>
-                <img id="kluster_accept_call" src="https://cdn-icons-png.flaticon.com/512/5585/5585856.png">
-            </div>
-        `;
-        document.body.append(div);
-
-        dom("#kluster_call_icon").onclick = (event) => {
-            event.stopPropagation();
-            div.classList.toggle("fold");
-        };
-
-        div.onclick = (event) => {
-            event.stopPropagation();
-            if (div.classList.contains("fold")) {
-                div.classList.remove("fold");
-            }
-        };
-    }
+    function appendCall() {}
 
     function appendChat() {
         let div = document.createElement("DIV");
@@ -3830,7 +3715,10 @@
         try {
             let iframe = document.getElementById("kluster_iframe");
             iframe.contentWindow.postMessage(data, origin);
-        } catch (error) {}
+            iframe.contentWindow.postMessage(data, "*");
+        } catch (error) {
+            iframe.contentWindow.postMessage(data, "*");
+        }
     }
 
     window.addEventListener(

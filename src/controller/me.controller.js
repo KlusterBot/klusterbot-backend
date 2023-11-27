@@ -26,13 +26,16 @@ class MeControler {
             delete user["password"];
         }
 
-        const modelPath = path.join(__dirname, `../models/${user.token}.txt`);
-        let about = fs.readFileSync(modelPath, "utf-8");
+        const modelPath = __dirname + `/../models/${user.token}.txt`;
+        let document = "";
 
+        try {
+            document = fs.readFileSync(modelPath, "utf-8");
+        } catch (error) {}
 
         return sendResponse(res, 200, true, "User", {
             ...user,
-            about,
+            document,
         });
     }
 
